@@ -7,5 +7,5 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-Autosimulaattori tulospalvelun tehtävänä on pitää yllä eri sarjojen kisojen lopputuloksia. Tulospalvelusta voi katsoa sarjan kokonaistilanteen sekä yksittäisen kisan tulokset. Myöskin yksittäisen kilpailijan tuloksia voi katsoa. Järjestelmän tarkoitus on helpottaa tuloksien ylläpitoa siten, että käyttäjä voi syöttää tulokset ja pistetaulukot yms. päivittyvät sen mukaan.
+Autosimulaattori tulospalvelun tehtävänä on pitää yllä eri sarjojen kisojen lopputuloksia. Tulospalvelusta voi katsoa sarjan kokonaistilanteen sekä yksittäisen kisan tulokset. Myöskin yksittäisen kilpailijan tuloksia voi katsoa. Järjestelmän tarkoitus on helpottaa tuloksien ylläpitoa siten, että käyttäjä voi syöttää kilpailun tulokset ja pistetaulukot yms. päivittyvät sen mukaan.
 
