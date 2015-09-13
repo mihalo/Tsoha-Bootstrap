@@ -1,1 +1,2 @@
--- Lisää INSERT INTO lauseet tähän tiedostoon
+INSERT INTO Users (name, password) VALUES ('xciteracingleague', 'password');
+INSERT INTO Users (name, password) VALUES ('test', 'test');

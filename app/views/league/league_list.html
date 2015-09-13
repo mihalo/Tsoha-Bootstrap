@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p>
+    <a href="{{base_path}}/newleague" class="btn btn-success">Add league</a>
+</p>
+
+{% if leagues %}
+<h1>All leagues</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>League name</th>
+            <th>Game</th>
+            <th>Platform</th>
+            <th>Drivers</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for league in leagues %}
+        <tr>
+            <td><a href="{{base_path}}/league/{{league.id}}">{{league.name}}</a></td>
+            <td>{{league.game}}</td>
+            <td>{{league.platform}}</td>
+            <td>{{drvs[league.id]}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+
+<h1>No leagues</h1>
+
+{% endif %}
+
+{% endblock %}

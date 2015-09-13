@@ -1,64 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>        
 
-    <title>
-      {% block title %}
-        Tietokantasovellus
-      {% endblock %}
-    </title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% block head %}
-      <!-- Bootstrap (tyylitiedosto) -->
-      <link href="{{base_path}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <title>
+            {% block title %}
+            Tietokantasovellus
+            {% endblock %}
+        </title>
 
-      <!-- Oma tyylitiedostomme -->
-      <link href="{{base_path}}/assets/css/site.css" rel="stylesheet">
-    {% endblock %}
-  </head>
+        {% block head %}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{{base_path}}/vendor/datepicker/css/datepicker.css" rel="stylesheet" type="text/css">
 
-  <body>
+        <!-- Bootstrap (tyylitiedosto) -->
+        <link href="{{base_path}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
+        <!-- Oma tyylitiedostomme -->
+        <link href="{{base_path}}/assets/css/site.css" rel="stylesheet">
 
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <!-- Sovelluksen nimi -->
-          <a class="navbar-brand" href="{{base_path}}">Tsoha Bootstrap</a>
+
+        {% endblock %}
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="{{base_path}}">eRacing results</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="nav navbar-nav">
+                        <!-- ... -->
+                    </ul>
+
+                    {% if user_logged_in %}
+                    <form class="navbar-form navbar-right" method="post" action="{{base_path}}/logout">
+                        <label>{{user_logged_in.name}}</label>
+                        <button type="submit" class="btn btn-default">Log out</button>
+                    </form>
+                    {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{base_path}}/login">Log in</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        <div id="main-container">
+            <!-- Dynaaminen sisältö tulee tähän -->
+            {% block content %}{% endblock %}
         </div>
 
-        <div class="collapse navbar-collapse" id="navigation">
-          <ul class="nav navbar-nav">
-            <!-- Navigaation linkit -->
-            <li><a href="{{base_path}}">Etusivu</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+        {% block body %}
+        <!-- jQuery -->
 
-    <div id="main-container">
-      <!-- Dynaaminen sisältö tulee tähän -->
-      {% block content %}{% endblock %}
-    </div>
+        <script src="{{base_path}}/vendor/jquery.min.js"></script>
 
-    {% block body %}
-      <!-- jQuery -->
-      <script src="{{base_path}}/vendor/jquery.min.js"></script>
+        <script src="{{base_path}}/vendor/datepicker/js/bootstrap-datepicker.js"></script>
 
-      <!-- Bootstrap (skriptitiedosto) -->
-      <script src="{{base_path}}/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Bootstrap (skriptitiedosto) -->
+        <script src="{{base_path}}/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-      <!-- Oma skriptitiedostomme -->
-      <script src="{{base_path}}/assets/js/site.js"></script>
-    {% endblock %}
-  </body>
+        <!-- Oma skriptitiedostomme -->
+        <script src="{{base_path}}/assets/js/site.js"></script>
+
+        <link href="{{base_path}}/vendor/summernote/summernote.css" rel="stylesheet">
+        <script src="{{base_path}}/vendor/summernote/summernote.min.js"></script>
+
+        {% endblock %}
+
+    </body>
 </html>

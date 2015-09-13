@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row text-center">
+    <h1>{{race.track}} | {{race.laps}} Laps</h1>
+</div>
+
+
+<div class="col-md-10 col-md-offset-1">
+    <div class="row text-center">
+        <h1>Qualification</h1>
+    </div>
+    <table class="table table-condensed table-striped table-hover" id="quali">
+        <thead>
+            <tr>
+                <th class="col-sm-12 col-md-1 col-sm-2">POS</th>
+                <th class="col-sm-12 col-md-2 col-sm-3">Driver</th>
+                <th class="col-sm-12 col-md-4 col-sm-3">Time (HH:MM:SS.sss)</th>
+                <th class="col-sm-12 col-md-2 col-sm-2">Gap</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in resultsQ %}
+            <tr>
+        <form method="post" action="{{base_path}}/league/{{result.league_id}}/race/{{result.race_id}}/results">
+
+            <td>
+                <strong>
+                    {{loop.index}}
+                </strong>
+            </td>
+            <td>
+                {{ attribute(drivers, result.driver_id) }}
+            </td>
+            <td>
+                <input type="text" class="form-control" name="quali_time" placeholder="HH:MM:SS:MSMSMS" value="{{result.quali_time}}" />
+            </td>
+            <td>
+                <p id="q{{loop.index}}"></p>
+                {% if (result.quali_extra) != "-" %} <strong>{{result.quali_extra}}</strong> {% endif %}
+            </td>
+            <td>
+                <div class="input-group pull-right">
+                    <select name="quali_extra" class="form-control input-sm">
+                        <option value="-">-</option>
+                        <option value="DNS">Did not start</option>
+                        <option value="DSF">Did not finish</option>
+                        <option value="DSC">Disconnect</option>
+                        <option value="DSQ">Disqualified</option>    
+                    </select>
+                </div>
+            </td>
+            <td class="text-right">
+                <input name="id" value="{{result.id}}" type="hidden">
+                <button type="submit" class="btn btn-success btn-xs" href="#">Save</button>
+            </td>
+        </form>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-10 col-md-offset-1">
+    <div class="row text-center">
+        <h1>Race</h1>
+    </div>
+    <table id="race" class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="col-sm-12 col-md-1 col-sm-2">POS</th>
+                <th class="col-sm-12 col-md-2 col-sm-3">Driver</th>
+                <th class="col-sm-12 col-md-4 col-sm-3">Time (HH:MM:SS.sss)</th>
+                <th class="col-sm-12 col-md-1 col-sm-2">Laps</th>
+                <th class="col-sm-12 col-md-2 col-sm-2">Gap</th>
+                <th class="col-sm-12 col-md-2 col-sm-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in resultsR %}
+            <tr>
+        <form method="post" action="{{base_path}}/league/{{result.league_id}}/race/{{result.race_id}}/results">
+
+            <td>
+                <strong>
+                    {{loop.index}}
+                </strong>
+            </td>
+            <td>
+                {{ attribute(drivers, result.driver_id) }}
+            </td>
+            <td>
+                <input type="text" placeholder="HH:MM:SS.sss" class="form-control" name="race_time" value="{{result.race_time}}" />
+            </td>
+            <td>
+                <input type="number" name="laps" class="form-control" value="{{result.laps}}" />
+            </td>
+            <td>
+                {% if (result.race_extra) != "-" %} <strong>{{result.race_extra}}</strong>{% else %}<p id="r{{loop.index}}"></p>{% endif %}
+            </td>
+            <td>
+                <div class="input-group pull-right">
+                    <select name="race_extra" class="form-control input-sm">
+                        <option value="-">-</option>
+                        <option value="DNS">Did not start</option>
+                        <option value="DSF">Did not finish</option>
+                        <option value="DSC">Disconnect</option>
+                        <option value="DSQ">Disqualified</option>    
+                    </select>
+                </div>
+            </td>
+            <td class="text-right">
+                <input name="id" value="{{result.id}}" type="hidden">
+                <button type="submit" class="btn btn-success btn-xs" href="#">Save</button>
+            </td>
+        </form>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        calculate();
+    };
+</script>
+
+{% endblock %}

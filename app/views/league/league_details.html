@@ -1,0 +1,55 @@
+<div class="col-lg-12">
+
+    <div class="row text-center">
+        <h1>{{league.name}} <button class="btn btn-danger">Delete</button> <a href="{{base_path}}/league/{{league.id}}/edit" class="btn btn-default">Edit</a></h1>
+
+        <img src="http://i.imgur.com/QQ4Yg4M.png" class="img-responsive"> 
+
+        <ul class="list-inline">
+            <li><strong>Game: </strong>{{league.game}}</li>
+            <li><strong>Platform: </strong>{{league.platform}}</li>
+            <li><strong>Admin: </strong><a href="{{base_path}}/{{league.user_id}}/leagues">{{admin}}</a></li>
+        </ul>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rules">Rules and regulations</button>
+
+        <div class="modal fade" id="rules" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Rules and regulations</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{league.rules | raw}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#info">League information</button>
+
+        <div class="modal fade" id="info" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">League information</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>

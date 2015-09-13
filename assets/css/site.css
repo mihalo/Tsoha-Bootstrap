@@ -1,10 +1,32 @@
 #main-container{
-  max-width: 1200px;
-  padding: 10px 25px;
-  margin: 0px auto;
+    max-width: 1200px;
+    padding: 10px 25px;
+    margin: 0px auto;
 }
 
 .navbar .container-fluid{
-  max-width: 1200px;
-  margin: 0px auto;
+    max-width: 1200px;
+    margin: 0px auto;
+}
+
+.resultHead:hover {
+    background-color: #D1D1D1;
+}
+
+.result {
+    padding: 5px 5px 5px 5px;
+    vertical-align: top;
+    border-top: 1px solid #DDD;
+}
+
+.resultsHidden {
+    display:none;
+}
+
+.resultsShow {
+    background-color: #D1D1D1;
+}
+
+.dark {
+    background-color: #f7f7f7;
 }
