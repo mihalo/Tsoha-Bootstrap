@@ -1,0 +1,16 @@
+<div class="col-lg-12">
+
+    <div class="row text-center">
+        <h1>{{league.name}} <button class="btn btn-danger">Delete</button></h1>
+
+        <ul class="list-inline">
+            <li><strong>Game: </strong>{{league.game}}</li>
+            <li><strong>Platform: </strong>{{league.platform}}</li>
+            <li><strong>Admin: </strong><a href="{{base_path}}/{{league.user_id}}/leagues">{{admin}}</a></li>
+        </ul>
+
+        <a href="{{base_path}}/league/{{league.id}}/editrules" class="btn btn-primary">Edit rules and regulations</a>
+        <a href="{{base_path}}/league/{{league.id}}/editinfo" class="btn btn-primary">Edit league information</a>
+
+    </div>
+</div>

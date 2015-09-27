@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>League information</h1>
+<form id="rls" method="post" action="{{base_path}}/league/{{league.id}}/saveinfo">
+    <textarea id="info">
+        {{league.info}}
+    </textarea>
+    <input type="hidden" id="i" name="info" value="" /> 
+    <input type="hidden" name="id" value="{{league.id}}"/>
+    <input type="button" class="btn btn-primary" onclick="codeInfo()" value="Save" />
+</form>
+
+<script type="text/javascript">
+    window.onload = function () {
+        info();
+    };
+</script>
+
+{% endblock %}

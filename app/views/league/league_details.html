@@ -1,9 +1,7 @@
 <div class="col-lg-12">
 
     <div class="row text-center">
-        <h1>{{league.name}} <button class="btn btn-danger">Delete</button> <a href="{{base_path}}/league/{{league.id}}/edit" class="btn btn-default">Edit</a></h1>
-
-        <img src="http://i.imgur.com/QQ4Yg4M.png" class="img-responsive"> 
+        <h1>{{league.name}} {% if (league.user_id) == (user_logged_in.id) %} <a href="{{base_path}}/league/{{league.id}}/edit" class="btn btn-success">EDIT</a> {% endif %}</h1>
 
         <ul class="list-inline">
             <li><strong>Game: </strong>{{league.game}}</li>
@@ -40,6 +38,7 @@
                         <h4 class="modal-title">League information</h4>
                     </div>
                     <div class="modal-body">
+                        {{league.info | raw}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

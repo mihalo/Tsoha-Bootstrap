@@ -48,10 +48,30 @@ function rules() {
     });
 }
 
+function info() {
+    $(document).ready(function () {
+        $('#info').summernote({
+            height: "200px",
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol']]
+            ]
+        });
+    });
+}
+
 function code() {
     var sHTML = $('#rules').code();
     console.log(sHTML);
     document.getElementById("r").value = sHTML;
+    document.getElementById('rls').submit();
+}
+
+
+function codeInfo() {
+    var sHTML = $('#info').code();
+    console.log(sHTML);
+    document.getElementById("i").value = sHTML;
     document.getElementById('rls').submit();
 }
 
@@ -85,6 +105,49 @@ function calculate() {
             }
             var laps = parseInt(cells[i].children[0].value);
             var time = timeToMs(cells[i - 1].children[0].value);
+            if (bestLaps - laps === 0) {
+                document.getElementById('r' + j).innerHTML = msToTime(bestTime - time);
+            } else {
+                var gap = bestLaps - laps;
+                if (gap === 1) {
+                    document.getElementById('r' + j).innerHTML = bestLaps - laps + " lap";
+                } else {
+                    document.getElementById('r' + j).innerHTML = bestLaps - laps + " laps";
+                }
+            }
+        }
+    });
+}
+
+function calculateGaps() {
+    $(document).ready(function () {
+        var i = 1;
+        var bestMs;
+        $("#quali td:nth-child(3)").each(function () {
+            if (i === 1) {
+                bestMs = timeToMs($(this).children().text());
+            }
+            var gap = timeToMs($(this).children().text()) - bestMs;
+            if (gap !== 0 && !isNaN(gap)) {
+                document.getElementById('q' + i).innerHTML = msToTime(gap);
+            }
+            i++;
+        });
+
+        var cells = document.getElementById('race').getElementsByTagName('td');
+
+        var bestLaps;
+        var bestTime;
+        var j = 0;
+        for (var i = 3; i < cells.length; i = i + 5) {
+            j++;
+            if (i === 3) {
+                bestLaps = cells[i].children[0].textContent;
+                bestTime = timeToMs(cells[i - 1].children[0].textContent);
+                continue;
+            }
+            var laps = parseInt(cells[i].children[0].textContent);
+            var time = timeToMs(cells[i - 1].children[0].textContent);
             if (bestLaps - laps === 0) {
                 document.getElementById('r' + j).innerHTML = msToTime(bestTime - time);
             } else {

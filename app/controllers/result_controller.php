@@ -16,7 +16,7 @@ class ResultController extends BaseController {
 
         $result->save();
 
-        Redirect::to('/league/' . $league_id . '/race/' . $race_id . '/results');
+        Redirect::to('/league/' . $league_id . '/race/' . $race_id . '/results/edit');
     }
 
     public static function updateResult($league_id, $race_id) {
@@ -42,7 +42,7 @@ class ResultController extends BaseController {
             $attributes['laps'] = $params['laps'];
             $result = new Rslt($attributes);
             $result->updateRaceTime();
-            Redirect::to('/league/' . $league_id . '/race/' . $race_id . '/results');
+            Redirect::to('/league/' . $league_id . '/race/' . $race_id . '/results/edit');
         }
     }
 
@@ -92,6 +92,24 @@ class ResultController extends BaseController {
         $league = League::findOne($league_id);
 
         View::make('league/league_result.html', array('league' => $league, 'race' => $race, 'resultsQ' => $resultsQ,
+            'drivers' => $drivers, 'resultsR' => $resultsR));
+    }
+
+    public static function showEdit($id, $league_id) {
+        Rslt::checkResults($id, $league_id);
+        $race = Race::findOne($id);
+        $resultsQ = Rslt::findAllQualification($id);
+        $resultsR = Rslt::findAllRace($id);
+
+        $drivers = Driver::findAllArray($league_id);
+        
+        $league = League::findOne($league_id);
+        $user_logged_in = self::get_user_logged_in();
+        if ($user_logged_in->id !== $league->user_id) {
+            Redirect::to('/login');
+        }
+
+        View::make('league/edit/league_result.html', array('league' => $league, 'race' => $race, 'resultsQ' => $resultsQ,
             'drivers' => $drivers, 'resultsR' => $resultsR));
     }
 

@@ -22,10 +22,11 @@ CREATE TABLE Driver (
     team_id INTEGER
 );
 
-CREATE TABLE Team (
-    id SERIAL PRIMARY KEY,
-    name varchar(50),
-);
+-- CREATE TABLE Team (
+--     id SERIAL PRIMARY KEY,
+--     league_id INTEGER NOT NULL,
+--     name varchar(50),
+-- );
 
 CREATE TABLE Race (
     id SERIAL PRIMARY KEY,

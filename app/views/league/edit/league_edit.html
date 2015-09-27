@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="post" action="{{base_path}}/newleague">
+    <div class="form-group">
+        <label>League name</label>
+        <input class="form-control" value="" type="text" name="name">
+    </div>
+    <div class="form-group">
+        <label>Game</label>
+        <input class="form-control" value="" type="text" name="game">
+    </div>
+    <div class="form-group">
+        <label>Platform:</label>
+        <select class="form-control" name="platform">
+            <option>Playstation 4</option>
+            <option>Xbox One</option>
+            <option>PC</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+{% endblock %}

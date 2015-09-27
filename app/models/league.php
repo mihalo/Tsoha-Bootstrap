@@ -86,6 +86,10 @@ class League extends BaseModel {
         $query = DB::connection()->prepare('UPDATE League SET rules = :rules WHERE id = :id;');
         $query->execute(array('id' => $this->id, 'rules' => $this->rules));
     }
-    
+
+    public function updateInfo() {
+        $query = DB::connection()->prepare('UPDATE League SET info = :info WHERE id = :id;');
+        $query->execute(array('id' => $this->id, 'info' => $this->info));
+    }
 
 }

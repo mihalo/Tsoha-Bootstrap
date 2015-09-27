@@ -9,32 +9,17 @@
                 <th>Driver name</th>
                 <th>Car</th>
                 <th>Team</th>
-                <th></th>
             </tr>
         </thead>
 
         <tbody>
             {% for driver in drivers %}
-        <form action="{{base_path}}/league/{{league.id}}/deleteDriver" method="post">
             <tr>
                 <td>{{driver.name}}</td>
                 <td>{{driver.car}}</td>
-                <th>
-                    <input name="id" value="{{driver.id}}" type="hidden" />
-                    <input name="league_id" value="{{league.id}}" type="hidden" />
-                    <button type="submit" class="btn btn-danger btn-xs" href="#">Delete</button>
-                </th>
+                <td>N/A</td>
             </tr>
-        </form>
-        {% endfor %}
-
-        <form method="post" action="{{base_path}}/league/{{league.id}}/addDriver">
-            <tr>
-                <td><input class="form-control" placeholder="Name" type="text" name="name"></td>
-                <td><input class="form-control" placeholder="Car" type="text" name="car"></td>
-                <td><button class="btn btn-success btn-md" href="#">Add</button></td>
-            </tr>
-        </form>
+            {% endfor %}
         </tbody>
     </table>
 

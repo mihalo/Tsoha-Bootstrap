@@ -19,7 +19,7 @@ class RaceController extends BaseController {
 
         Rslt::checkResults($race->id, $id);
 
-        Redirect::to('/league/' . $id);
+        Redirect::to('/league/' . $id . '/edit');
     }
 
     public static function deleteRace($id) {
@@ -37,7 +37,7 @@ class RaceController extends BaseController {
             $result->destroy();
         }
 
-        Redirect::to('/league/' . $id);
+        Redirect::to('/league/' . $id . '/edit');
     }
 
 }

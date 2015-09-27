@@ -49,7 +49,7 @@ class LeagueController extends BaseController {
         }
 
 
-        Redirect::to('/league/' . $id);
+        Redirect::to('/league/' . $id . '/edit');
     }
 
     public static function deleteDriver() {
@@ -64,7 +64,7 @@ class LeagueController extends BaseController {
         }
 
 
-        Redirect::to('/league/' . $params['league_id']);
+        Redirect::to('/league/' . $params['league_id'] . '/edit');
     }
 
     public static function show($id) {
@@ -75,15 +75,40 @@ class LeagueController extends BaseController {
 //        $results = Rslt::findAll($id);
         $results = Rslt::getResults($id);
         $admin = User::find($league->id)->name;
-        View::make('league/league_show.html', array('admin' => $admin,'drvs' => $drvs, 'league' => $league, 'drivers' => $drivers, 'races' => $races, 'results' => $results));
+        View::make('league/league_show.html', array('admin' => $admin, 'drvs' => $drvs, 'league' => $league, 'drivers' => $drivers, 'races' => $races, 'results' => $results));
     }
 
     public static function showEdit($id) {
+//        $league = League::findOne($id);
+//        View::make('league/edit/league_details_edit.html', array('league' => $league));
         $league = League::findOne($id);
-        View::make('league/edit/league_details_edit.html', array('league' => $league));
+        $user_logged_in = self::get_user_logged_in();
+
+        if ($user_logged_in->id !== $league->user_id) {
+            Redirect::to('/login');
+        }
+
+        $drivers = Driver::findAll($id);
+        $drvs = Driver::findAllArray($id);
+        $races = Race::findAll($id);
+//        $results = Rslt::findAll($id);
+        $results = Rslt::getResults($id);
+        $admin = User::find($league->id)->name;
+        View::make('league/edit/league_show.html', array('admin' => $admin, 'drvs' => $drvs, 'league' => $league, 'drivers' => $drivers, 'races' => $races, 'results' => $results));
+    }
+
+    public static function editRules($id) {
+        $league = League::findOne($id);
+        $user_logged_in = self::get_user_logged_in();
+        if ($user_logged_in->id !== $league->user_id) {
+            Redirect::to('/login');
+        }
+
+        View::make('league/edit/league_rules_edit.html', array('league' => $league));
     }
 
     public static function saveRules($id) {
+
         $params = $_POST;
 
         $attributes = array(
@@ -93,6 +118,30 @@ class LeagueController extends BaseController {
 
         $league = new League($attributes);
         $league->updateRules();
+
+
+        Redirect::to('/league/' . $id . '/edit');
+    }
+
+    public static function editInfo($id) {
+        $league = League::findOne($id);
+        $user_logged_in = self::get_user_logged_in();
+        if ($user_logged_in->id !== $league->user_id) {
+            Redirect::to('/login');
+        }
+        View::make('league/edit/league_info_edit.html', array('league' => $league));
+    }
+
+    public static function saveInfo($id) {
+        $params = $_POST;
+
+        $attributes = array(
+            'id' => $params['id'],
+            'info' => $params['info']
+        );
+
+        $league = new League($attributes);
+        $league->updateInfo();
 
 
         Redirect::to('/league/' . $id . '/edit');
