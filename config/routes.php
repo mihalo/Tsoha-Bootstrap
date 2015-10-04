@@ -20,6 +20,10 @@ $routes->get('/newleague', 'check_logged_in', function() {
     LeagueController::newLeague();
 });
 
+$routes->post('/:id/deleteLeague', 'check_logged_in', function($id) {
+    LeagueController::destroy($id);
+});
+
 $routes->post('/newleague', 'check_logged_in', function() {
     LeagueController::create();
 });

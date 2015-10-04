@@ -8,6 +8,11 @@ class League extends BaseModel {
         parent::__construct($attributes);
     }
 
+    public function destroy() {
+        $query = DB::connection()->prepare('DELETE FROM League WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+    }
+
     public static function all() {
         $query = DB::connection()->prepare('SELECT * FROM League');
 

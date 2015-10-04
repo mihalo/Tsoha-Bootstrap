@@ -1,7 +1,10 @@
 <div class="col-lg-12">
 
     <div class="row text-center">
-        <h1>{{league.name}} <button class="btn btn-danger">Delete</button></h1>
+        <h1>{{league.name}}</h1>
+        <form action="{{base_path}}/{{league.id}}/deleteLeague" method="post">
+            <button type="submit" class="btn btn-danger btn-lg">Delete</button>
+        </form>
 
         <ul class="list-inline">
             <li><strong>Game: </strong>{{league.game}}</li>

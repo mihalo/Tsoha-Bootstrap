@@ -72,6 +72,14 @@ class LeagueController extends BaseController {
         }
     }
 
+    public static function destroy($id) {
+        $user_logged_in = self::get_user_logged_in();
+        $league = new League(array('id' => $id));
+        $league->destroy();
+
+        Redirect::to('/' . $user_logged_in->id . '/leagues');
+    }
+
     public static function deleteDriver() {
         $params = $_POST;
 
@@ -128,7 +136,7 @@ class LeagueController extends BaseController {
     }
 
     public static function saveRules($id) {
-        
+
         $params = $_POST;
         $attributes = array(
             'id' => $params['id'],
