@@ -32,7 +32,7 @@ class ResultController extends BaseController {
             $attributes['quali_extra'] = $params['quali_extra'];
             $result = new Rslt($attributes);
             $result->updateQualificationTime();
-            Redirect::to('/league/' . $league_id . '/race/' . $race_id . '/results');
+            Redirect::to('/league/' . $league_id . '/race/' . $race_id . '/results/edit');
         }
 
         if (isset($params["race_time"]) && !empty($params["race_time"])) {

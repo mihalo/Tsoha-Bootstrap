@@ -26,30 +26,50 @@ class LeagueController extends BaseController {
             'user_id' => $user_logged_in->id
         ));
 
-        $league->save();
-
-        Redirect::to('/league/' . $league->id);
+        $v = new Valitron\Validator($_POST);
+        $v->rule('required', 'name');
+        $v->rule('lengthMax', 'name', 50);
+        $v->rule('required', 'game');
+        $v->rule('lengthMax', 'game', 50);
+        if ($v->validate()) {
+            $league->save();
+            Redirect::to('/league/' . $league->id);
+        } else {
+//            Kint::dump($v->errors());
+            View::make('league/league_edit.html', array('errors' => $v->errors(), 'league' => $league));
+        }
     }
 
     public static function addDriver($id) {
-
         $params = $_POST;
-
         $driver = new Driver(array(
             'league_id' => $id,
             'name' => $params['name'],
             'car' => $params['car']
         ));
 
-        $driver->save();
+        $v = new Valitron\Validator($_POST);
+        $v->rule('required', 'name');
+        $v->rule('required', 'car');
+        $v->rule('lengthMax', 'name', 50);
+        $v->rule('lengthMax', 'car', 50);
 
-        $races = Race::findAll($id);
-        foreach ($races as $race) {
-            Rslt::checkResults($race->id, $id);
+        if ($v->validate()) {
+            $driver->save();
+            $races = Race::findAll($id);
+            foreach ($races as $race) {
+                Rslt::checkResults($race->id, $id);
+            }
+            Redirect::to('/league/' . $id . '/edit');
+        } else {
+            $league = League::findOne($id);
+            $drivers = Driver::findAll($id);
+            $drvs = Driver::findAllArray($id);
+            $races = Race::findAll($id);
+            $results = Rslt::getResults($id);
+            $admin = User::find($league->user_id)->name;
+            View::make('league/edit/league_show.html', array('errors' => $v->errors(), 'driver' => $driver, 'admin' => $admin, 'drvs' => $drvs, 'league' => $league, 'drivers' => $drivers, 'races' => $races, 'results' => $results));
         }
-
-
-        Redirect::to('/league/' . $id . '/edit');
     }
 
     public static function deleteDriver() {
@@ -74,7 +94,7 @@ class LeagueController extends BaseController {
         $races = Race::findAll($id);
 //        $results = Rslt::findAll($id);
         $results = Rslt::getResults($id);
-        $admin = User::find($league->id)->name;
+        $admin = User::find($league->user_id)->name;
         View::make('league/league_show.html', array('admin' => $admin, 'drvs' => $drvs, 'league' => $league, 'drivers' => $drivers, 'races' => $races, 'results' => $results));
     }
 
@@ -93,7 +113,7 @@ class LeagueController extends BaseController {
         $races = Race::findAll($id);
 //        $results = Rslt::findAll($id);
         $results = Rslt::getResults($id);
-        $admin = User::find($league->id)->name;
+        $admin = User::find($league->user_id)->name;
         View::make('league/edit/league_show.html', array('admin' => $admin, 'drvs' => $drvs, 'league' => $league, 'drivers' => $drivers, 'races' => $races, 'results' => $results));
     }
 
@@ -108,14 +128,12 @@ class LeagueController extends BaseController {
     }
 
     public static function saveRules($id) {
-
+        
         $params = $_POST;
-
         $attributes = array(
             'id' => $params['id'],
             'rules' => $params['rules']
         );
-
         $league = new League($attributes);
         $league->updateRules();
 

@@ -30,12 +30,25 @@
 
         <form method="post" action="{{base_path}}/league/{{league.id}}/addDriver">
             <tr>
-                <td><input class="form-control" placeholder="Name" type="text" name="name"></td>
-                <td><input class="form-control" placeholder="Car" type="text" name="car"></td>
+                <td><input class="form-control" placeholder="Name" value="{{driver.name}}" type="text" name="name"></td>
+                <td><input class="form-control" placeholder="Car" value="{{driver.car}}" type="text" name="car"></td>
                 <td><button class="btn btn-success btn-md" href="#">Add</button></td>
             </tr>
         </form>
         </tbody>
     </table>
+
+    {% if errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for error in errors %}
+            {% for err in error %}
+            <li>{{err}}</li>
+            {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
 
 </div>

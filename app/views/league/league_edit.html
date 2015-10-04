@@ -1,14 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        {% for err in error %}
+        <li>{{err}}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 <form method="post" action="{{base_path}}/newleague">
     <div class="form-group">
         <label>League name</label>
-        <input class="form-control" value="" type="text" name="name">
+        <input class="form-control" value="{{league.name}}" type="text" name="name">
     </div>
     <div class="form-group">
         <label>Game</label>
-        <input class="form-control" value="" type="text" name="game">
+        <input class="form-control" value="{{league.game}}" type="text" name="game">
     </div>
     <div class="form-group">
         <label>Platform:</label>

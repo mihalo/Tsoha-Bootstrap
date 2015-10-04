@@ -32,9 +32,9 @@
 
 <form method="post" action="{{base_path}}/league/{{league.id}}/addRace">
     <tr>
-        <td><input class="form-control" placeholder="Track" type="text" name="track"></td>
-        <td><input type="text" class="datepicker form-control" placeholder="Race" name="raceday"></td>
-        <td><input class="form-control" placeholder="Laps" value="0" type="number" name="laps"></td>
+        <td><input class="form-control" placeholder="Track" type="text" name="track" value="{{race.track}}"></td>
+        <td><input type="text" class="datepicker form-control" placeholder="Race" value="{{race.raceday}}" name="raceday"></td>
+        <td><input class="form-control" placeholder="Laps" value="0" type="number" value="{{race.laps}}" name="laps"></td>
     <input name="league_id" value="{{league.id}}" type="hidden">
     <input name="result_id" value="0" type="hidden">
     <td></td>
@@ -43,6 +43,18 @@
     </tr>
 </form>       
 
-
 </tbody>
+
+{% if raceErrors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in raceErrors %}
+        {% for err in error %}
+        <li>{{err}}</li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 </table>
