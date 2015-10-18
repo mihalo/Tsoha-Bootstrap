@@ -112,6 +112,9 @@ class LeagueController extends BaseController {
         $league = League::findOne($id);
         $user_logged_in = self::get_user_logged_in();
 
+        if ($user_logged_in === null) {
+            Redirect::to('/login');
+        }
         if ($user_logged_in->id !== $league->user_id) {
             Redirect::to('/login');
         }
@@ -128,6 +131,9 @@ class LeagueController extends BaseController {
     public static function editRules($id) {
         $league = League::findOne($id);
         $user_logged_in = self::get_user_logged_in();
+        if ($user_logged_in === null) {
+            Redirect::to('/login');
+        }
         if ($user_logged_in->id !== $league->user_id) {
             Redirect::to('/login');
         }
@@ -152,6 +158,9 @@ class LeagueController extends BaseController {
     public static function editInfo($id) {
         $league = League::findOne($id);
         $user_logged_in = self::get_user_logged_in();
+        if ($user_logged_in === null) {
+            Redirect::to('/login');
+        }
         if ($user_logged_in->id !== $league->user_id) {
             Redirect::to('/login');
         }
